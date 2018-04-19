@@ -11,22 +11,34 @@ class App extends Component {
   state = {
     cards,
     score: 0,
+    message: "",
     pickedCards: []
   };
 
     shuffleCards = (id) => {
-                console.log('shuffle: clicked ID:', id);
-                console.log('shuffle: score', this.state.score);
-                console.log('shuffle: picked', this.state.pickedCards);
+      console.log('shuffle: score', this.state.score);
+      console.log('shuffle: picked', this.state.pickedCards);
+      console.log('shuffle: clicked ID:', id);
+
+      
       if ( this.state.pickedCards.indexOf(id) < 0 )
       {
-        console.log("shuffle: push in card list "+id);
         this.state.pickedCards.push(id);
+        this.setState({ message: " good" });
+        this.setState({ score: this.state.score + 1 })
+        console.log("shuffle: push in card list "+id+" message "+this.state.message);
       }
       else
       {
         console.log("shuffle: duplicate "+id)
+        this.setState({ message: " duplicate" });
+        this.setState({ score: 0 })
+        this.setState({ pickedCards: [] });
+        console.log("shuffle: duplicate "+id+" message "+this.state.message)
       }
+      
+      console.log('shuffle: new score', this.state.score);
+      console.log('shuffle: new picked', this.state.pickedCards);
       //  console.log('indexOf', this.state.pickedCards.indexOf(id));
     // Filter this.state.friends for friends with an id not equal to the id being removed
      // Set this.state.friends equal to the new friends array
@@ -42,10 +54,11 @@ class App extends Component {
 
   // Map over this.state.cards and render a Quickycard component for each card object
   render() {
-        console.log('I was triggered during render')
+        console.log('Rendering')
     return (
       <Wrapper>
-        <Title>Clicky Card List</Title>
+        <Title>Clicky Card Game</Title>
+        <h1>Score {this.state.score} {this.state.message}</h1>
         {this.state.cards.map(card => (
           <ClickyCard
             shuffleCards={this.shuffleCards}
