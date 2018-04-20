@@ -15,46 +15,64 @@ class App extends Component {
     pickedCards: []
   };
 
-    shuffleCards = (id) => {
-      console.log('shuffle: score', this.state.score);
-      console.log('shuffle: picked', this.state.pickedCards);
-      console.log('shuffle: clicked ID:', id);
 
+    shuffleCards = (id) => { 
+
+      console.log('shuffle: clicked ID:', id);
+  // 
+  // this.setState((state) => ({x: state.x + 1}));
       
       if ( this.state.pickedCards.indexOf(id) < 0 )
       {
-        this.state.pickedCards.push(id);
-        this.setState({ message: " good" });
-        this.setState({ score: this.state.score + 1 })
+        // card not picked yet
+        let pickedCardsNew = [...this.state.pickedCards];
+        pickedCardsNew.push(id);
+
+        this.setState({ message: " good", 
+          score: this.state.score+1, 
+          pickedCards: pickedCardsNew });
+        // this.setState({ score: this.state.score + 1 })
         console.log("shuffle: push in card list "+id+" message "+this.state.message);
+        let cardsNew =  [...this.state.cards];
+        console.log("before "+JSON.stringify(cardsNew[0])+"\n"+JSON.stringify(cardsNew[1]));
+        let tmp = cardsNew[0];
+       // let tmpid = cardsNew[0].id;
+        cardsNew[0] = cardsNew[1];
+      //  cardsNew[0].id = cardsNew[1].id
+        cardsNew[1] = tmp;
+      //  cardsNew[1].id = tmpid;
+        console.log("after "+JSON.stringify(cardsNew[0])+"\n"+JSON.stringify(cardsNew[1]));
+        this.setState({cards: cardsNew});
       }
       else
       {
         console.log("shuffle: duplicate "+id)
-        this.setState({ message: " duplicate" });
-        this.setState({ score: 0 })
-        this.setState({ pickedCards: [] });
+        this.setState({ message: " duplicate",
+          score: 0 ,
+          pickedCards: []
+         });
         console.log("shuffle: duplicate "+id+" message "+this.state.message)
-      }
-      
-      console.log('shuffle: new score', this.state.score);
-      console.log('shuffle: new picked', this.state.pickedCards);
-      //  console.log('indexOf', this.state.pickedCards.indexOf(id));
-    // Filter this.state.friends for friends with an id not equal to the id being removed
-     // Set this.state.friends equal to the new friends array
-  //event.preventDefault();
-// console.log("clicked id "+id)
+      }    
   }
 
+logit() {
+        console.log('shuffle: score', this.state.score);
+      console.log('shuffle: picked', this.state.pickedCards);
+      console.log('shuffle: message', this.state.message);
+      //console.log('shuffle: clicked ID:', id);
+  
+}
   componentDidMount() {
     console.log("componentDidMount: current cards")
     for (let i=0; i < cards.length; i++)
       console.log(JSON.stringify(cards[i]))
   }
 
-  // Map over this.state.cards and render a Quickycard component for each card object
+  // Map over this.state.cards and render a ClickyCard component 
+  // for each card object
   render() {
         console.log('Rendering')
+        this.logit();
     return (
       <Wrapper>
         <Title>Clicky Card Game</Title>
