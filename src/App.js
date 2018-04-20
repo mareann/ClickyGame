@@ -22,46 +22,47 @@ class App extends Component {
   // 
   // this.setState((state) => ({x: state.x + 1}));
       
+      // card not picked yet
       if ( this.state.pickedCards.indexOf(id) < 0 )
       {
-        // card not picked yet
         let pickedCardsNew = [...this.state.pickedCards];
+        // save the picked card
         pickedCardsNew.push(id);
 
-        this.setState({ message: " good", 
-          score: this.state.score+1, 
-          pickedCards: pickedCardsNew });
-        // this.setState({ score: this.state.score + 1 })
         console.log("shuffle: push in card list "+id+" message "+this.state.message);
-        let cardsNew =  [...this.state.cards];
-        console.log("before "+JSON.stringify(cardsNew[0])+"\n"+JSON.stringify(cardsNew[1]));
-        let tmp = cardsNew[0];
-       // let tmpid = cardsNew[0].id;
-        cardsNew[0] = cardsNew[1];
-      //  cardsNew[0].id = cardsNew[1].id
-        cardsNew[1] = tmp;
-      //  cardsNew[1].id = tmpid;
-        console.log("after "+JSON.stringify(cardsNew[0])+"\n"+JSON.stringify(cardsNew[1]));
-        this.setState({cards: cardsNew});
+
+         //shuffle cards
+        const cardsNew = this.state.cards.sort( (a, b) => {
+            return 0.5 - Math.random();
+        });
+
+        // set the new state values
+        this.setState({ 
+          message: " good", 
+          score: this.state.score+1, 
+          pickedCards: pickedCardsNew,
+          cards: cardsNew
+        });
       }
       else
       {
-        console.log("shuffle: duplicate "+id)
-        this.setState({ message: " duplicate",
+        //console.log("shuffle: duplicate "+id)
+        this.setState({ 
+          message: " duplicate",
           score: 0 ,
           pickedCards: []
-         });
+        });
         console.log("shuffle: duplicate "+id+" message "+this.state.message)
       }    
   }
 
-logit() {
-        console.log('shuffle: score', this.state.score);
+  logit() {
+      console.log('shuffle: score', this.state.score);
       console.log('shuffle: picked', this.state.pickedCards);
       console.log('shuffle: message', this.state.message);
       //console.log('shuffle: clicked ID:', id);
   
-}
+  }
   componentDidMount() {
     console.log("componentDidMount: current cards")
     for (let i=0; i < cards.length; i++)
