@@ -16,7 +16,13 @@
 * Top score is shown on top right of screen
 
 
+This app is deployed at https://clickygame0421.herokuapp.com/
+
 # HAVE FUN!!
+
+Maryann Jordan
+
+
 
 
 
