@@ -1,12 +1,24 @@
 # ClickyGame
-memory game with React
 
-* The application should render different images (of your choice) to the screen. Each image should listen for click events.
+# memory game with React where application's UI is broken into components, manages component state, and responds to user events.
 
-* The application should keep track of the user's score. The user's score should be incremented when clicking an image for the first time. The user's score should be reset to 0 if they click the same image more than once.
 
-* Every time an image is clicked, the images rendered to the page should shuffle themselves in a random order.
+### ClickyGame screen
+![screen](clickygame.jpg)
 
-* Once the user's score is reset after an incorrect guess, the game should restart.
+## How to play ClickyGame 
+  
+* Select one of the different images on the screen.
+* The score is incremented when clicking an image for the first time. 
+* If the same image is clicked more than once, the user’s score resets to 0 and the game restarts.
+* Every time an image is clicked, the images rendered to the page shuffle themselves in a random order.
+* Once the user's score is reset after an incorrect guess, the games restart.
+
+
+# HAVE FUN!!
+
+
+
+ 
 
 
