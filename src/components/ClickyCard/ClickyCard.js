@@ -14,7 +14,7 @@ const ClickyCard = (props) => (
             <img alt={props.name} src={props.image} onClick={() => props.shuffleCards(props.id)} />
         </div>
         <div className="content">
-          <strong>Hi I'm {props.name}</strong>
+          <strong>Click me, I'm {props.name}!</strong>
         </div>
   </div>
 );
