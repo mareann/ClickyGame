@@ -23,7 +23,7 @@
 .card > .content {
   padding-left: 1rem;
   padding-right: 1rem;
-  font-size: 3em;
+ /* font-size: 3em;*/
 }
 
 .card > .content > ul {

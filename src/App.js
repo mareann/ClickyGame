@@ -11,6 +11,7 @@ class App extends Component {
   state = {
     cards,
     score: 0,
+    topScore: 0,
     message: "",
     pickedCards: []
   };
@@ -21,7 +22,7 @@ class App extends Component {
       console.log('shuffle: clicked ID:', id);
   // 
   // this.setState((state) => ({x: state.x + 1}));
-      
+      let topScoreNew = 0;
       // card not picked yet
       if ( this.state.pickedCards.indexOf(id) < 0 )
       {
@@ -36,9 +37,11 @@ class App extends Component {
             return 0.5 - Math.random();
         });
 
+        topScoreNew = this.state.score;
+
         // set the new state values
         this.setState({ 
-          message: " good", 
+          message: " Great Guess!", 
           score: this.state.score+1, 
           pickedCards: pickedCardsNew,
           cards: cardsNew
@@ -46,10 +49,16 @@ class App extends Component {
       }
       else
       {
-        //console.log("shuffle: duplicate "+id)
+        // save highest score
+        if ( this.state.score > this.state.topScore )
+          topScoreNew = this.state.score
+        else
+          topScoreNew = this.state.topScore;
+                //console.log("shuffle: duplicate "+id)
         this.setState({ 
-          message: " duplicate",
+          message: " OOPs...",
           score: 0 ,
+          topScore: topScoreNew,
           pickedCards: []
         });
         console.log("shuffle: duplicate "+id+" message "+this.state.message)
@@ -57,9 +66,10 @@ class App extends Component {
   }
 
   logit() {
-      console.log('shuffle: score', this.state.score);
-      console.log('shuffle: picked', this.state.pickedCards);
-      console.log('shuffle: message', this.state.message);
+      console.log('shuffle: score ', this.state.score);
+      console.log('shuffle: picked ', this.state.pickedCards);
+      console.log('shuffle: message ', this.state.message);
+      console.log('shuffle: topScore ', this.state.topScore);
       //console.log('shuffle: clicked ID:', id);
   
   }
@@ -77,7 +87,8 @@ class App extends Component {
     return (
       <Wrapper>
         <Title>Clicky Card Game</Title>
-        <h1>Score {this.state.score} {this.state.message}</h1>
+        <h2><span id="instructions">Click on an image to earn points. Don't click on any more than once!</span></h2>
+        <h1><span id="gameMessage">{this.state.message}</span><span id="gameScore">Score: {this.state.score}</span><span id="gameTopScore">    Top Score: {this.state.topScore}</span></h1>
         {this.state.cards.map(card => (
           <ClickyCard
             shuffleCards={this.shuffleCards}
